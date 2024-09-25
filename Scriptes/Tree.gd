@@ -1,9 +1,13 @@
 extends StaticBody2D
 
+var quantity_hit = 0
+
+@export var quantity_before_fall = 3
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	$Shake.hide()
+	$Fall.show()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -13,4 +17,14 @@ func _process(delta):
 
 func _on_hitbox_area_entered(area):
 	if area.name == "Axe":
-		queue_free()
+		quantity_hit = quantity_hit + 1
+		if quantity_hit == quantity_before_fall:
+		#queue_free()
+			$Shake.hide()
+			$Fall.show()
+			$anim.play("Fall")
+			quantity_hit = 0
+		else:
+			$Fall.hide()
+			$Shake.show()
+			$anim.play("Shake")
