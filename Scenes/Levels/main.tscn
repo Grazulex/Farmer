@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://c64ryomg1r8ju"]
+
+[ext_resource type="PackedScene" uid="uid://b5dlfoler6gsf" path="res://Scenes/Player/player.tscn" id="1_63ds2"]
+[ext_resource type="Script" path="res://Scriptes/Tree.gd" id="2_gyeyk"]
+[ext_resource type="Texture2D" uid="uid://dibs5brthuqnf" path="res://assets/Tree animations/tree_fall_animation_sprite_sheet.png" id="3_sfkh5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_np52s"]
+radius = 8.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8b5rn"]
+radius = 8.0
+height = 24.0
+
+[node name="Main" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_63ds2")]
+position = Vector2(-31, 5)
+collision_mask = 2
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)
+
+[node name="Tree" type="StaticBody2D" parent="."]
+collision_layer = 2
+script = ExtResource("2_gyeyk")
+
+[node name="Sprite2D" type="Sprite2D" parent="Tree"]
+texture = ExtResource("3_sfkh5")
+hframes = 13
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tree"]
+position = Vector2(8, 11)
+shape = SubResource("CircleShape2D_np52s")
+debug_color = Color(0.964706, 0, 0.482353, 0.419608)
+
+[node name="Hitbox" type="Area2D" parent="Tree"]
+collision_layer = 4
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tree/Hitbox"]
+position = Vector2(8, 6)
+shape = SubResource("CapsuleShape2D_8b5rn")
+debug_color = Color(0.956863, 0.0784314, 0.494118, 0.419608)
+
+[connection signal="area_entered" from="Tree/Hitbox" to="Tree" method="_on_hitbox_area_entered"]
