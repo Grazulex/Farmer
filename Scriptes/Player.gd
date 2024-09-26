@@ -5,8 +5,8 @@ enum player_states {MOVE, AXE, RUN}
 var input_movement = Vector2.ZERO
 var direction = Vector2.ZERO
 
-@export var speed_walk = 40
-@export var speed_run = 80
+@export var speed_walk:int = 40
+@export var speed_run:int = 80
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

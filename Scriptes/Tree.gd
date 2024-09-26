@@ -2,7 +2,7 @@ extends StaticBody2D
 
 var quantity_hit = 0
 
-@export var quantity_before_fall = 3
+@export var quantity_before_fall:int = 3
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
